@@ -118,6 +118,7 @@ class AbstractCityHeap(ABC):
             self.heapStorage[0] = city
             return
 
+        # TODO: replace by is full function
         if self.currentHeapLastIndex >= self.maximumHeapCapacity - 1:
             return
 
@@ -134,7 +135,6 @@ class AbstractCityHeap(ABC):
         Build a Heap via Floyds Heap Construction Algorithm from a unsorted List Of Cities.
         """
         self.heapStorage = self.rawCityData
-        print(self.heapStorage[self.currentHeapLastIndex])
         self.currentHeapLastIndex = self.maximumHeapCapacity - 1
 
         index = self.currentHeapLastIndex
@@ -264,7 +264,7 @@ class AbstractCityHeap(ABC):
 
             False   = Not full
         """
-        return self.currentHeapLastIndex == self.maximumHeapCapacity
+        return self.currentHeapLastIndex == self.maximumHeapCapacity - 1
 
     def swap_nodes(self, first_node_index, second_node_index):
         """
@@ -272,6 +272,7 @@ class AbstractCityHeap(ABC):
         """
         first_node = self.heapStorage[first_node_index]
         second_node = self.heapStorage[second_node_index]
+
         self.heapStorage[first_node_index] = second_node
         self.heapStorage[second_node_index] = first_node
 

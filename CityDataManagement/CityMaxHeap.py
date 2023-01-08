@@ -49,38 +49,28 @@ class CityMaxHeap(AbstractCityHeap):
         
         """
         if self.currentHeapLastIndex < index or index < 0:
-            print("index out of bound")
             return
 
         if self.has_childs(index):
-            print("Has childs")
 
             if self.has_left_child(index) and self.has_right_child(index):
-                print("has to child")
                 if self.get_left_child_population(index) < self.get_right_child_population(index):
-                    print("Right child is the biggest")
                     largest_child_index = self.get_right_child_index(index)
                 else:
-                    print("Left child is the biggest")
                     largest_child_index = self.get_left_child_index(index)
 
                 if self.get_city_population(index) < self.get_city_population(largest_child_index):
-                    print("Child bigger than parent")
                     self.swap_nodes(index, largest_child_index)
                     self.heapify_floyd(largest_child_index, amount_of_cities)
 
             elif self.has_left_child(index):
-                print("Only has left child")
                 if self.get_city_population(index) < self.get_left_child_population(index):
-                    print("Left bigger than parent")
                     left_child_index = self.get_left_child_index(index)
                     self.swap_nodes(index, left_child_index)
                     self.heapify_floyd(left_child_index, amount_of_cities)
 
             else:
-                print("Only has right child")
                 if self.get_city_population(index) < self.get_right_child_population(index):
-                    print("Right bigger than parent")
                     right_child_index = self.get_right_child_index(index)
                     self.swap_nodes(index, right_child_index)
                     self.heapify_floyd(right_child_index, amount_of_cities)
@@ -96,7 +86,7 @@ class CityMaxHeap(AbstractCityHeap):
         while self.has_childs(index) and (
                 self.has_left_child(index) and self.get_city_population(index) < self.get_left_child_population(
                 index)) or \
-                (self.has_left_child(index) and self.get_city_population(index) < self.get_right_child_population(
+                (self.has_right_child(index) and self.get_city_population(index) < self.get_right_child_population(
                     index)):
 
             if self.has_left_child(index) and self.get_city_population(index) < self.get_left_child_population(index):
@@ -130,11 +120,7 @@ class CityMaxHeap(AbstractCityHeap):
         """
         Remove a City from the Max-Heap
         """
-        print("Last city")
-        print(self.heapStorage[self.currentHeapLastIndex])
-        print(self.heapStorage[0])
-
-        city_to_be_removed = self.heapStorage[0] = self.heapStorage[0]
+        city_to_be_removed = self.heapStorage[0]
 
         self.heapStorage[0] = self.heapStorage[self.currentHeapLastIndex]
         self.heapStorage[self.currentHeapLastIndex] = 0
