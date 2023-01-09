@@ -51,9 +51,9 @@ class CityMaxHeap(AbstractCityHeap):
         if self.currentHeapLastIndex < index or index < 0:
             return
 
-        if self.has_childs(index):
+        if self.has_right_child(index) or self.has_left_child(index):
 
-            if self.has_left_child(index) and self.has_right_child(index):
+            if self.has_childs(index):
                 if self.get_left_child_population(index) < self.get_right_child_population(index):
                     largest_child_index = self.get_right_child_index(index)
                 else:
@@ -75,19 +75,23 @@ class CityMaxHeap(AbstractCityHeap):
                     self.swap_nodes(index, right_child_index)
                     self.heapify_floyd(right_child_index, amount_of_cities)
 
-
-
     def heapify_down_iterative(self):
         """
         Establish heap conditions for a Max-Heap iterative downwards.
         """
         index = 0
 
-        while self.has_childs(index) and (
-                self.has_left_child(index) and self.get_city_population(index) < self.get_left_child_population(
-                index)) or \
-                (self.has_right_child(index) and self.get_city_population(index) < self.get_right_child_population(
-                    index)):
+        while self.has_left_child(index) or self.has_right_child(index):
+
+            if self.has_childs(index):
+                if self.get_left_child_population(index) < self.get_right_child_population(index):
+                    largest_child_index = self.get_right_child_index(index)
+                else:
+                    largest_child_index = self.get_left_child_index(index)
+
+                if self.get_city_population(index) < self.get_city_population(largest_child_index):
+                    self.swap_nodes(index, largest_child_index)
+                    index = largest_child_index
 
             if self.has_left_child(index) and self.get_city_population(index) < self.get_left_child_population(index):
                 left_child_index = self.get_left_child_index(index)
@@ -104,7 +108,16 @@ class CityMaxHeap(AbstractCityHeap):
         """
         Establish heap conditions for a Max-Heap recursive downwards.
         """
-        if self.has_childs(index):
+        if self.has_right_child(index) or self.has_right_child(index):
+
+            if self.has_childs(index):
+                if self.get_left_child_population(index) < self.get_right_child_population(index):
+                    largest_child_index = self.get_right_child_index(index)
+                else:
+                    largest_child_index = self.get_left_child_index(index)
+                if self.get_city_population(index) < self.get_city_population(largest_child_index):
+                    self.swap_nodes(index, largest_child_index)
+                    self.heapify_down_recursive(largest_child_index)
 
             if self.has_left_child(index) and self.get_city_population(index) < self.get_left_child_population(index):
                 left_child_index = self.get_left_child_index(index)

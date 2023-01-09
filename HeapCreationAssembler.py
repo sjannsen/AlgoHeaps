@@ -30,8 +30,8 @@ class HeapCreationAssembler:
         self.executionTimeAnalyser.start()
         self.cityDataManager.create_new_max_city_heap(city_data, True, False)
         self.executionTimeAnalyser.stop("MaxHeap Execution time Recursive: ")
-        #
-        # # create Max Heap and measure Execution Time for Floyds Algorithm
+
+        # create Max Heap and measure Execution Time for Floyds Algorithm
         self.executionTimeAnalyser.start()
         self.cityDataManager.create_new_max_city_heap(city_data, True, True)
         self.executionTimeAnalyser.stop("MaxHeap Execution time with Floyd's Algorithm: ")
@@ -50,7 +50,7 @@ class HeapCreationAssembler:
         # Visualisation
         data_to_visualize: List[City] = self.cityDataManager.get_max_heap_as_list()
         amount_of_nodes_to_create = 1023
-        amount_of_nodes_to_create = len(city_data) #all cities, use this for science at the price of performance ;)
+        # amount_of_nodes_to_create = len(city_data) #all cities, use this for science at the price of performance ;)
         self.visualize_heap(data_to_visualize, amount_of_nodes_to_create, city_data)
 
     def measure_tim_sort_execution_time(self, city_data):
